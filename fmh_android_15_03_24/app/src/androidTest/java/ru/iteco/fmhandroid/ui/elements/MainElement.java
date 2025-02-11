@@ -25,13 +25,13 @@ public class MainElement { // элементы на главной страни�
     public MainElement() {
         mainLogo = onView(withId(R.id.trademark_image_view));
         profileButton = onView(withId(R.id.authorization_image_button));
-        logOutButton = onView(withText("Выйти"));
+        logOutButton = onView(withText("Log out"));
         menuButton = onView(withId(R.id.main_menu_image_button));
-        mainOfMenu = onView(withText("Главная"));
-        newsOfMenu = onView(withText("Новости"));
-        aboutOfMenu = onView(withText("О приложении"));
+        mainOfMenu = onView(withText("Main"));
+        newsOfMenu = onView(withText("News"));
+        aboutOfMenu = onView(withText("About"));
         ourMissionButton = onView(withId(R.id.our_mission_image_button));
-        titleOfNewsContainer = onView(withText("Новости"));
+        titleOfNewsContainer = onView(withText("All News"));
         allNewsButton = onView(withId(R.id.all_news_text_view));
         collapseAllNewsButton = onView(withId(R.id.expand_material_button));
     }
