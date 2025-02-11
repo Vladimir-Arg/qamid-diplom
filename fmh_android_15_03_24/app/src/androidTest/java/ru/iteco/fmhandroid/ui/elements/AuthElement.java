@@ -9,7 +9,7 @@ import androidx.test.espresso.ViewInteraction;
 
 import ru.iteco.fmhandroid.R;
 
-public class AuthElement {
+public class AuthElement { // элементы на странице авторизации
     private final ViewInteraction loginField = onView(withHint("Login"));
     private final ViewInteraction passwordField = onView(withHint("Password"));
     private final ViewInteraction loginButton = onView(withId(R.id.enter_button));

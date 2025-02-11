@@ -15,10 +15,16 @@ import androidx.test.espresso.util.TreeIterables;
 import java.util.concurrent.TimeoutException;
 
 public class DataHelper {
+    public static String toastMessage = "Something went wrong. Try again later.";
+    public static String toastMessageEmpty = "Login and password cannot be empty";
+    public static String toastMessageAuthorization = "Authorization";
+    public static String toastMessageCreateNews = "Fill empty fields";
+    public static String toastMessageCategoryCreateNews = "Saving failed. Try again later.";
+
     private DataHelper() {
     }
 
-    public static class AuthInfo {
+    public static class AuthInfo { // набор данных для авторизации
         private final String login;
         private final String password;
 
@@ -36,16 +42,40 @@ public class DataHelper {
         }
     }
 
-    public static AuthInfo validLoginAndPassword() {
+    public static AuthInfo validLoginAndPassword() { // корректые учетные данные
         String login = "login2";
         String password = "password2";
         return new AuthInfo(login, password);
     }
-    public static AuthInfo invalidLogin() {
-        String login = "login3";
-        String password = "password2";
+
+    public static AuthInfo invalidLoginAndPasswordAnalogicValid() { // логин-парволь, не заявленные как валидные
+        String login = "login1";
+        String password = "password1";
         return new AuthInfo(login, password);
     }
+    public static AuthInfo invalidLoginAndPassword() { // логин-парволь, не заявленные как валидные
+        String login = "dsff3";
+        String password = "wrwef3";
+        return new AuthInfo(login, password);
+    }
+
+    public static AuthInfo passwordAndLoginWithSpaceAtTheEnd() { // в логине и пароле пробел в конце
+        String login = "login2 ";
+        String password = "password2 ";
+        return new AuthInfo(login, password);
+    }
+    public static AuthInfo passwordAndLoginWithSpaceAtTheBeginning() { // логин и парволь начинаются с пробела
+        String login = " login2";
+        String password = " password2";
+        return new AuthInfo(login, password);
+    }
+
+    public static AuthInfo emptyLoginAndPassword() { // пустой логин и пароль
+        String login = "";
+        String password = "";
+        return new AuthInfo(login, password);
+    }
+
 
     public static ViewAction waitDisplayed(final int viewId, final long millis) {
         return new ViewAction() {
@@ -78,7 +108,6 @@ public class DataHelper {
                 }
                 while (System.currentTimeMillis() < endTime);
 
-                // timeout happens
                 throw new PerformException.Builder()
                         .withActionDescription(this.getDescription())
                         .withViewDescription(HumanReadables.describe(view))
@@ -87,4 +116,5 @@ public class DataHelper {
             }
         };
     }
+
 }

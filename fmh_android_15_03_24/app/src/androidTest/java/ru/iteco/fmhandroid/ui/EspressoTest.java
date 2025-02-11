@@ -1,4 +1,5 @@
 /*
+// Класс, созданный через инструмент Espresso Test Recorer.
 package ru.iteco.fmhandroid.ui;
 
 import android.view.View;
