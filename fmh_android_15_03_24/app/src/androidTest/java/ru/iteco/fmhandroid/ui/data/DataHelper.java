@@ -24,24 +24,6 @@ public class DataHelper {
     private DataHelper() {
     }
 
-    public static class AuthInfo { // набор данных для авторизации
-        private final String login;
-        private final String password;
-
-        public AuthInfo(String login, String password) {
-            this.login = login;
-            this.password = password;
-        }
-
-        public String getLogin() {
-            return login;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-    }
-
     public static AuthInfo validLoginAndPassword() { // корректые учетные данные
         String login = "login2";
         String password = "password2";
@@ -53,6 +35,7 @@ public class DataHelper {
         String password = "password1";
         return new AuthInfo(login, password);
     }
+
     public static AuthInfo invalidLoginAndPassword() { // логин-парволь, не заявленные как валидные
         String login = "dsff3";
         String password = "wrwef3";
@@ -64,6 +47,7 @@ public class DataHelper {
         String password = "password2 ";
         return new AuthInfo(login, password);
     }
+
     public static AuthInfo passwordAndLoginWithSpaceAtTheBeginning() { // логин и парволь начинаются с пробела
         String login = " login2";
         String password = " password2";
@@ -75,7 +59,6 @@ public class DataHelper {
         String password = "";
         return new AuthInfo(login, password);
     }
-
 
     public static ViewAction waitDisplayed(final int viewId, final long millis) {
         return new ViewAction() {
@@ -115,6 +98,24 @@ public class DataHelper {
                         .build();
             }
         };
+    }
+
+    public static class AuthInfo { // набор данных для авторизации
+        private final String login;
+        private final String password;
+
+        public AuthInfo(String login, String password) {
+            this.login = login;
+            this.password = password;
+        }
+
+        public String getLogin() {
+            return login;
+        }
+
+        public String getPassword() {
+            return password;
+        }
     }
 
 }

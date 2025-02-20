@@ -50,7 +50,7 @@ public class AuthTest {
     public void startPage() {
         onView(isRoot()).perform(waitDisplayed(R.id.container_custom_app_bar_include_on_fragment_main, 8000));
         try {
-            authStep.authScreenIsVisible();
+            authStep.authScreenIsDisplayed();
             authStep.checkAuthPageIsDisplayed();
         } catch (NoMatchingViewException e) {
             mainStep.logout();

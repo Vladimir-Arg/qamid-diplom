@@ -19,8 +19,11 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
+import ru.iteco.fmhandroid.ui.steps.AboutStep;
 import ru.iteco.fmhandroid.ui.steps.AuthStep;
 import ru.iteco.fmhandroid.ui.steps.MainStep;
+import ru.iteco.fmhandroid.ui.steps.NewsStep;
+import ru.iteco.fmhandroid.ui.steps.QuotesStep;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
@@ -31,12 +34,16 @@ public class MainTest {
 
     AuthStep authStep = new AuthStep();
     MainStep mainStep = new MainStep();
+    QuotesStep quotesStep = new QuotesStep();
+    NewsStep newsStep = new NewsStep();
+    AboutStep aboutStep = new AboutStep();
+
     private View decorView;
     @Before
     public void mainPage() {
         onView(isRoot()).perform(waitDisplayed(R.id.container_custom_app_bar_include_on_fragment_main, 8000));
         try {
-            authStep.authScreenIsVisible();
+            authStep.authScreenIsDisplayed();
             authStep.loginIn();
             mainStep.checkMainIsDisplayed();
         } catch (NoMatchingViewException e) {
@@ -56,11 +63,26 @@ public class MainTest {
     public void checkMainTest() {// Проверка что открыта главная страница
         mainStep.checkMainIsDisplayed();
     }
-    // Переход на страницу "новости" через меню
-    // переход на страницу "О программе" через меню
-    // Переход на страницу "все новости" через кнопку в теле страницы
-    // переход на страницу цитат (@id/our_mission_image_button)
-    // Выход из авторизованной зоны (для предваирительных условий последующих тестов)
+    @Test
+    public void openNewsInMenuTest() { // Переход на страницу "новости" через меню
+        mainStep.openNewsPage();
+        newsStep.checkNewsIsDisplayed();
+    }
+    @Test
+    public void openAboutTest() { // переход на страницу "О программе" через меню
+        mainStep.openAboutPage();
+        aboutStep.checkAboutIsDisplayed();
+    }
+    @Test
+    public void openNewsTest() {   // Переход на страницу "все новости" через кнопку в теле страницы
 
+        mainStep.openAllNews();
+        newsStep.checkNewsIsDisplayed();
+    }
+    @Test
+    public void openQuotesTest() {   // Переход на страницу цитат (@id/our_mission_image_button)
 
+        mainStep.openQuotesPage();
+        quotesStep.checkQuotesIsDisplayed();
+    }
 }

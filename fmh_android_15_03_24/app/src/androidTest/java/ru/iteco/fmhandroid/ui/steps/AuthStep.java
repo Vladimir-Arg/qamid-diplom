@@ -22,7 +22,7 @@ import ru.iteco.fmhandroid.ui.elements.AuthElement;
 public class AuthStep { // Действия на экране авторизации
     AuthElement authElements = new AuthElement();
 
-    public void authScreenIsVisible() { // Проверка что отображается заголовок "Авторизация"
+    public void authScreenIsDisplayed() { // Проверка что отображается заголовок "Авторизация"
         authElements.getAuthorizationHeader().check(matches(isDisplayed()));
     }
     public void checkAuthPageIsDisplayed() { // Провекра что отображаются поля для ввода логина и пароля
