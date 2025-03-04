@@ -14,7 +14,7 @@ public class MainStep { // Действия на главном экране (а
     MainElement mainElement = new MainElement();
 
     public void checkMainIsDisplayed() { // Проверка что открыта главная страница (отображаются все элемен)
-//        onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 4000));
+        onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 4000));
         mainElement.profileButton.check(matches(isDisplayed()));
         mainElement.menuButton.check(matches(isDisplayed()));
         mainElement.ourMissionButton.check(matches(isDisplayed()));

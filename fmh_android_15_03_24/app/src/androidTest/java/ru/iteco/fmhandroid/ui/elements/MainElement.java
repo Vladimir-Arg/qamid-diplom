@@ -31,7 +31,7 @@ public class MainElement { // элементы на главной страни�
         newsOfMenu = onView(withText("News"));
         aboutOfMenu = onView(withText("About"));
         ourMissionButton = onView(withId(R.id.our_mission_image_button));
-        titleOfNewsContainer = onView(withText("All News"));
+        titleOfNewsContainer = onView(withText("All news"));
         allNewsButton = onView(withId(R.id.all_news_text_view));
         collapseAllNewsButton = onView(withId(R.id.expand_material_button));
     }
