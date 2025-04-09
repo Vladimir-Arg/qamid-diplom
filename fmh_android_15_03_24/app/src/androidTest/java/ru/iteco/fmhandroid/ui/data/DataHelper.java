@@ -5,6 +5,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.UiController;
@@ -12,17 +14,13 @@ import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.util.HumanReadables;
 import androidx.test.espresso.util.TreeIterables;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+
 import java.util.concurrent.TimeoutException;
 
 public class DataHelper {
-    public static String toastMessage = "Something went wrong. Try again later.";
-    public static String toastMessageEmpty = "Login and password cannot be empty";
-    public static String toastMessageAuthorization = "Authorization";
-    public static String toastMessageCreateNews = "Fill empty fields";
-    public static String toastMessageCategoryCreateNews = "Saving failed. Try again later.";
-
-    private DataHelper() {
-    }
 
     public static AuthInfo validLoginAndPassword() { // корректые учетные данные
         String login = "login2";
@@ -117,5 +115,54 @@ public class DataHelper {
             return password;
         }
     }
+    public static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
 
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+
+    public static Matcher<View> childAtPosition(Matcher<View> matcher, final Matcher<View> parentMatcher, final int position) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+    public static Matcher<View> withIndex(final Matcher<View> matcher, final int index) {
+        return new TypeSafeMatcher<View>() {
+            int currentIndex = 0;
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with index: ");
+                description.appendValue(index);
+                matcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                return matcher.matches(view) && currentIndex++ == index;
+            }
+        };
+    }
 }

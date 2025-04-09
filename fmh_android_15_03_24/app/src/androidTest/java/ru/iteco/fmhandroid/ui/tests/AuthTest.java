@@ -2,17 +2,14 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.data.DataHelper.emptyLoginAndPassword;
 import static ru.iteco.fmhandroid.ui.data.DataHelper.invalidLoginAndPassword;
 import static ru.iteco.fmhandroid.ui.data.DataHelper.invalidLoginAndPasswordAnalogicValid;
-import static ru.iteco.fmhandroid.ui.data.DataHelper.toastMessage;
-import static ru.iteco.fmhandroid.ui.data.DataHelper.toastMessageEmpty;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.passwordAndLoginWithSpaceAtTheBeginning;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.passwordAndLoginWithSpaceAtTheEnd;
 import static ru.iteco.fmhandroid.ui.data.DataHelper.validLoginAndPassword;
-import static ru.iteco.fmhandroid.ui.data.DataHelper.*;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.waitDisplayed;
 
 import android.view.View;
 
@@ -29,7 +26,6 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
-import ru.iteco.fmhandroid.ui.data.ToastMatcher;
 import ru.iteco.fmhandroid.ui.steps.AuthStep;
 import ru.iteco.fmhandroid.ui.steps.MainStep;
 
@@ -69,43 +65,33 @@ public class AuthTest {
     public void validLoginValidPasswordTest() {
 
         authStep.loginAndPasswordAuthorization(validLoginAndPassword());
-//        authStep.loginIn();
         mainStep.checkMainIsDisplayed();
     }
     @Test
     public void invalidLoginAndPasswordTest() {
         authStep.loginAndPasswordAuthorization(invalidLoginAndPassword());
-        onView(withText(toastMessage)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
-        authStep.checkToastMessageText("Something went wrong. Try again later.", decorView);
-
-//        onView(withText("Something went wrong. Try again later."))
-//                .inRoot(isDialog())
-//                .check(matches(isDisplayed()));
-
-//        onView(withText("Something went wrong. Try again later."))
-//                .check(matches(isDisplayed()));
-
+//        authStep.checkToastMessageText("Something went wrong. Try again later.", decorView); // выводится такой текст. с этой строкой тест проходит
+        authStep.checkToastMessageText("Wrong login or password", decorView); // текстовка ошибки должна быть такая
     }
     @Test
     public void emptyLoginAndPasswordTest() {
         authStep.loginAndPasswordAuthorization(emptyLoginAndPassword());
-        onView(withText(toastMessageEmpty)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));    }
+        authStep.checkToastMessageText("Login and password cannot be empty", decorView); // правильный вариант
+  }
 
     @Test
     public void invalidLoginAndPasswordAnalogicValidTest() { // авторизация должна провалиться, но она пролоходит
         authStep.loginAndPasswordAuthorization(invalidLoginAndPasswordAnalogicValid());
-        onView(withText(toastMessage)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));    }
+        authStep.checkToastMessageText("Wrong login or password", decorView); // должна быть такая ошибка
+    }
     @Test
     public void passwordAndLoginWithSpaceAtTheEndTest() {
         authStep.loginAndPasswordAuthorization(passwordAndLoginWithSpaceAtTheEnd());
-        onView(withText(toastMessageEmpty)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));    }
+        authStep.checkToastMessageText("Wrong login or password", decorView); //   должна быть такая ошибка
+    }
     @Test
     public void passwordAndLoginWithSpaceAtTheBeginningTest() {
         authStep.loginAndPasswordAuthorization(passwordAndLoginWithSpaceAtTheBeginning());
-        onView(withText(toastMessageEmpty)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));    }
+        authStep.checkToastMessageText("Wrong login or password", decorView); // должна быть такая ошибка
+    }
 }

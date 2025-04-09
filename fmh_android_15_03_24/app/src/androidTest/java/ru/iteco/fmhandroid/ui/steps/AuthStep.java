@@ -33,43 +33,13 @@ public class AuthStep { // Действия на экране авторизац
     }
     /**
     **/
-    public void loginAndPasswordAuthorization(DataHelper.AuthInfo info) { // Авторизация корректными учетными данными
+    public void loginAndPasswordAuthorization(DataHelper.AuthInfo info) { // Авторизация (Ввод логина, пароля и нажатие кнопки "войти") учетные данные берутся из Datahelper
         authElements.getLoginField().perform(typeText(info.getLogin()));
         authElements.getPasswordField().perform(typeText(info.getPassword())).perform(closeSoftKeyboard());
         authElements.getLoginButton().perform(click());
     }
-/*
-    public void validLoginAndPasswordAuthorization(DataHelper.AuthInfo info) { // Авторизация с заведомо корректными учетными данными
-        authElements.getLoginField().perform(typeText(info.getLogin()));
-        authElements.getPasswordField().perform(typeText(info.getPassword())).perform(closeSoftKeyboard());
-        authElements.getLoginButton().perform(click());
-    }
-    public void invalidLoginAuthorization() { // Авторизаци с неверным логином
-        authElements.getLoginField().perform(typeText(invalidLogin().getLogin()));
-        authElements.getPasswordField().perform(typeText(invalidLogin().getPassword())).perform(closeSoftKeyboard());
-        authElements.getLoginButton().perform(click());
-    }
-
-    public void invalidPasswordAuthorization() { // Авторизация с неверным паролем
-        authElements.getLoginField().perform(typeText(invalidPassword().getLogin()));
-        authElements.getPasswordField().perform(typeText(invalidPassword().getPassword())).perform(closeSoftKeyboard());
-        authElements.getLoginButton().perform(click());
-    }
-
-    public void invalidLoginAndPasswordAuthorization() { // Авторизация с неверным логином и паролем
-        authElements.getLoginField().perform(typeText(invalidLoginAndPassword().getLogin()));
-        authElements.getPasswordField().perform(typeText(invalidLoginAndPassword().getPassword())).perform(closeSoftKeyboard());
-        authElements.getLoginButton().perform(click());
-    }
-
-    public void emptyLoginFieldAuthorization() { // Авторизация с пустым логином
-        authElements.getLoginField().perform(typeText(emptyLogin().getLogin()));
-        authElements.getPasswordField().perform(typeText(emptyLogin().getPassword())).perform(closeSoftKeyboard());
-        authElements.getLoginButton().perform(click());
-    }*/
 
     public void loginIn() { // Авторизация с корректной учеткой, и проверка что авторизация прошла (для предваирительных условий последующих тестов)
-
         try {
             onView(isRoot()).perform(waitDisplayed(R.id.enter_button, 5000));
             loginAndPasswordAuthorization(validLoginAndPassword());
