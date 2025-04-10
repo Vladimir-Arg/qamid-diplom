@@ -11,16 +11,16 @@ import static ru.iteco.fmhandroid.ui.data.DataHelper.waitDisplayed;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
-import ru.iteco.fmhandroid.ui.elements.NewsControlPanelElement;
+import ru.iteco.fmhandroid.ui.elements.ControlPanelElement;
 import ru.iteco.fmhandroid.ui.elements.NewsElement;
 
-public class NewsControlPanelStep {
-    NewsControlPanelElement newsControlPanelElement = new NewsControlPanelElement();
+public class ControlPanelStep {
+    ControlPanelElement controlPanelElement = new ControlPanelElement();
     NewsElement newsElement = new NewsElement();
     NewsCreateEditStep newsCreateEditStep = new NewsCreateEditStep();
 
 
-    public void openNewsControlPanelElement() {
+    public void opencontrolPanelElement() {
         Allure.step("Переход в панель управления со страницы Новости");
         newsElement.controlPanelButton.perform(click());
         waitDisplayed(R.id.add_news_image_view, 5000);
@@ -29,36 +29,36 @@ public class NewsControlPanelStep {
     public void checkThatControlPanelContentIsFull() {
         Allure.step("Проверка, что в панели управления полный контент");
         waitDisplayed(R.id.add_news_image_view, 5000);
-        newsControlPanelElement.logo.check(matches(isDisplayed()));
-        newsControlPanelElement.sortButton.check(matches(isDisplayed()));
-        newsControlPanelElement.filterButton.check(matches(isDisplayed()));
-        newsControlPanelElement.addNewsButton.check(matches(isDisplayed()));
+        controlPanelElement.logo.check(matches(isDisplayed()));
+        controlPanelElement.sortButton.check(matches(isDisplayed()));
+        controlPanelElement.filterButton.check(matches(isDisplayed()));
+        controlPanelElement.addNewsButton.check(matches(isDisplayed()));
     }
 
     public void clickSortNewsButton() {
         Allure.step("Нажать кнопку сортировки");
-        newsControlPanelElement.sortButton.perform(click());
+        controlPanelElement.sortButton.perform(click());
     }
 
     public void openNewsFilter() {
         Allure.step("Открыть расширенный фильтр");
-        newsControlPanelElement.filterButton.perform(click());
+        controlPanelElement.filterButton.perform(click());
     }
 
     public void openCreateNewsButton() {
         Allure.step("Нажать кнопку создание новости");
-        newsControlPanelElement.addNewsButton.perform(click());
+        controlPanelElement.addNewsButton.perform(click());
     }
 
     public void clickDeleteNews(String newsTitle) {
         Allure.step("Удалить новость с указанным заголовком");
-        newsControlPanelElement.deleteNewsButton(newsTitle).perform(click());
+        controlPanelElement.deleteNewsButton(newsTitle).perform(click());
         newsCreateEditStep.clickOKButton();
     }
 
     public void clickEditNews(String newsTitle) {
         Allure.step("Нажать кнопку Корректировка новости");
-        newsControlPanelElement.editNewsButton(newsTitle).perform(click());
+        controlPanelElement.editNewsButton(newsTitle).perform(click());
     }
 
     public void checkIfNewsWithTitle(String titleText) {
@@ -70,6 +70,4 @@ public class NewsControlPanelStep {
         Allure.step("Проверка, что новости с указанным заголовком нет");
         onView(allOf(withText(titleText), isDisplayed())).check(doesNotExist());
     }
-
-
 }

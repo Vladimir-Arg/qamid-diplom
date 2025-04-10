@@ -94,7 +94,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
-    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
@@ -107,7 +107,11 @@ dependencies {
     androidTestImplementation 'io.qameta.allure:allure-kotlin-model:2.4.0'
     androidTestImplementation 'io.qameta.allure:allure-kotlin-commons:2.4.0'
     androidTestImplementation 'io.qameta.allure:allure-kotlin-junit4:2.4.0'
+    androidTestImplementation 'io.qameta.allure:allure-android:2.13.9'
+
 
     implementation 'androidx.test.espresso:espresso-idling-resource:3.6.1'
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.6.1"
+
 
 }

@@ -18,6 +18,11 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
 public class DataHelper {
@@ -165,4 +170,33 @@ public class DataHelper {
             }
         };
     }
+    public static String getCurrentDate() {
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        return dateFormat.format(currentDate);
+    }
+
+    public static String getCurrentTime() {
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return dateFormat.format(currentDate);
+    }
+    public static class Rand {
+        static final Random rand = new Random();
+
+        public static String randomCategory() {
+            String[] category = {
+                    "Объявление",
+                    "День рождения",
+                    "Зарплата",
+                    "Профсоюз",
+                    "Праздник",
+                    "Массаж",
+                    "Благодарность",
+                    "Нужна помощь"
+            };
+            return category[rand.nextInt(category.length)];
+        }
+    }
+
 }

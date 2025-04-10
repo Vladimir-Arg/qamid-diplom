@@ -1,9 +1,15 @@
 package ru.iteco.fmhandroid.ui.steps;
 
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
+
+import android.view.View;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.elements.NewsCreateEditElement;
@@ -77,5 +83,20 @@ public class NewsCreateEditStep {
     public void clickOKButton() {
         Allure.step("Нажатие кнопки ОК в сообщении");
         newsCreateEditElement.okButtonMessage.perform(click());
+    }
+    public void checkToastMessageText(String text, View decorView) {
+        Allure.step("Проверка сообщения");
+        onView(withText(text))
+                .inRoot(withDecorView(not(decorView)))
+                .check(matches(isDisplayed()));
+    }
+    public void createNews(String category, String title, String publicationDate,
+                           String publicationTime, String description) {
+        Allure.step("Ввод данных для создания новости");
+        fillInNewsCategoryField(category);
+        fillInNewsTitleField(title);
+        fillInPublicDateField(publicationDate);
+        fillInTimeField(publicationTime);
+        fillInNewsDescriptionField(description);
     }
 }

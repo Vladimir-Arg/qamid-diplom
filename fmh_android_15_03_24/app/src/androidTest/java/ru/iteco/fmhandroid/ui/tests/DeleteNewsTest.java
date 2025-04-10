@@ -2,13 +2,15 @@ package ru.iteco.fmhandroid.ui.tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.Rand.randomCategory;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.getCurrentDate;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.getCurrentTime;
 import static ru.iteco.fmhandroid.ui.data.DataHelper.waitDisplayed;
 
 import android.view.View;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.filters.LargeTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,30 +19,32 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
-import ru.iteco.fmhandroid.ui.steps.AboutStep;
 import ru.iteco.fmhandroid.ui.steps.AuthStep;
+import ru.iteco.fmhandroid.ui.steps.ControlPanelStep;
 import ru.iteco.fmhandroid.ui.steps.MainStep;
 import ru.iteco.fmhandroid.ui.steps.NewsControlPanelStep;
+import ru.iteco.fmhandroid.ui.steps.NewsCreateEditStep;
 import ru.iteco.fmhandroid.ui.steps.NewsFilterStep;
 import ru.iteco.fmhandroid.ui.steps.NewsStep;
-import ru.iteco.fmhandroid.ui.steps.QuotesStep;
 
-@LargeTest
 @RunWith(AllureAndroidJUnit4.class)
-public class NewsTest {
+
+public class DeleteNewsTest {
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
     AuthStep authStep = new AuthStep();
     MainStep mainStep = new MainStep();
-    QuotesStep quotesStep = new QuotesStep();
     NewsStep newsStep = new NewsStep();
-    AboutStep aboutStep = new AboutStep();
     NewsControlPanelStep newsControlPanelStep = new NewsControlPanelStep();
     NewsFilterStep newsFilterStep = new NewsFilterStep();
+    NewsCreateEditStep newsCreateEditStep = new NewsCreateEditStep();
+    ControlPanelStep controlPanelStep = new ControlPanelStep();
     private View decorView;
 
     @Before
@@ -50,9 +54,12 @@ public class NewsTest {
             authStep.authScreenIsDisplayed();
             authStep.loginIn();
             mainStep.checkMainIsDisplayed();
+            mainStep.openNewsPage();
+            newsStep.checkNewsIsDisplayed();
         } catch (NoMatchingViewException e) {
             mainStep.logout();
             authStep.loginIn();
+            mainStep.openNewsPage();
         }
         mActivityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
@@ -64,38 +71,27 @@ public class NewsTest {
         } catch (Exception ignored) {
         }
     }
+    @Test
+    @Feature(value = "Тесты по разделу Новостей")
+    @Story("Удаление новости")
+    public void shouldSuccessfullyDeleteNewsAndVerifyRemoval() {
 
-    @Test
-    public void shouldDisplayCompleteContentOnNewsPage() { // Переход на страницу "новости" через меню
-        mainStep.openNewsPage();
-        newsStep.checkNewsIsDisplayed();
-    }
-    @Test
-    public void shouldDisplayCompleteContentAllNewsPage() { // Переход на страницу "все новости" через кнопку в теле страницы
-        mainStep.openAllNews();
-        newsStep.checkNewsIsDisplayed();
-    }
-    @Test
+        String publicationDate = getCurrentDate();
+        String publicationTime = getCurrentTime();
 
-    public void shouldAccessControlPanelWithAllElements() {
-        mainStep.openNewsPage();
-        newsControlPanelStep.openNewsControlPanelElement();
-        newsControlPanelStep.checkThatControlPanelContentIsFull();
-    }
-    @Test
-    public void shouldReturnToHomePageFromNewsPageWithFullContentCheck() {
-        mainStep.openNewsPage();
-        newsStep.checkNewsIsDisplayed();
-        newsStep.checkGoBackMainPage();
-        newsStep.checkNewsIsDisplayed();
-    }
+        String title = "Test Title";
+        String description = "Test description";
 
-    @Test
-    public void shouldCancelNewsFilterWithoutApplyingChanges() { // Тест проверяет функциональность отмены фильтрации новостей
-        mainStep.openNewsPage();
-        newsControlPanelStep.openNewsControlPanelElement();
-        newsControlPanelStep.openNewsFilter();
-        newsFilterStep.clickCancelButton();
-        newsControlPanelStep.checkThatControlPanelContentIsFull();
+
+        controlPanelStep.opencontrolPanelElement();
+        controlPanelStep.openCreateNewsButton();
+
+        newsCreateEditStep.createNews(randomCategory(), title, publicationDate,
+                publicationTime, description);
+        newsCreateEditStep.clickSaveButton();
+
+        controlPanelStep.clickDeleteNews(title);
+        controlPanelStep.checkThatControlPanelContentIsFull();
+        controlPanelStep.checkIfNoNewsWithTitle(title);
     }
 }

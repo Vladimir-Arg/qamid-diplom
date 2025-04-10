@@ -1,5 +1,4 @@
 package ru.iteco.fmhandroid.ui.elements;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -7,12 +6,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import androidx.test.espresso.ViewInteraction;
 
 import ru.iteco.fmhandroid.R;
-
-public class NewsCreateEditElement {
+public class CreateNewsElement {
     public ViewInteraction titlePage;
+
     public ViewInteraction categoryText;
     public ViewInteraction titleText;
     public ViewInteraction descriptionText;
+
     public ViewInteraction publicationDate;
     public ViewInteraction time;
     public ViewInteraction switcher;
@@ -24,11 +24,15 @@ public class NewsCreateEditElement {
     public ViewInteraction okButtonMessage;
     public ViewInteraction cancelButtonMessage;
 
-    public NewsCreateEditElement() {
+    public CreateNewsElement() {
+
         titlePage = onView(withId(R.id.custom_app_bar_title_text_view));
-        categoryText = onView(withId(R.id.news_item_category_text_auto_complete_text_view));
+
+        categoryText =
+                onView(withId(R.id.news_item_category_text_auto_complete_text_view));
         titleText = onView(withId(R.id.news_item_title_text_input_edit_text));
-        descriptionText = onView(withId(R.id.news_item_description_text_input_edit_text));
+        descriptionText =
+                onView(withId(R.id.news_item_description_text_input_edit_text));
 
         publicationDate = onView(withId(R.id.news_item_publish_date_text_input_edit_text));
         time = onView(withId(R.id.news_item_publish_time_text_input_edit_text));
