@@ -47,7 +47,12 @@ android {
         }
     }
 }
-
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
 dependencies {
     def retrofit_version = "2.9.0"
     def retrofit_gson_version = "2.9.0"
@@ -63,6 +68,9 @@ dependencies {
     def hilt_version = '2.41'
     def gson_version = '2.9.0'
     def swipe_refresh_version = '1.1.0'
+
+//    agent 'org.aspectj:aspectjweaver:1.9.21'
+//    testImplementation 'io.qameta.allure:allure-junit4-aspect:'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -94,7 +102,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
-    androidTestImplementation 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
@@ -107,8 +115,6 @@ dependencies {
     androidTestImplementation 'io.qameta.allure:allure-kotlin-model:2.4.0'
     androidTestImplementation 'io.qameta.allure:allure-kotlin-commons:2.4.0'
     androidTestImplementation 'io.qameta.allure:allure-kotlin-junit4:2.4.0'
-    androidTestImplementation 'io.qameta.allure:allure-android:2.13.9'
-
 
     implementation 'androidx.test.espresso:espresso-idling-resource:3.6.1'
     androidTestImplementation "androidx.test.espresso:espresso-intents:3.6.1"

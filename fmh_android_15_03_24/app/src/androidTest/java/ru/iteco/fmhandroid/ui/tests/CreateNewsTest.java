@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
 import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
@@ -72,6 +73,7 @@ public class CreateNewsTest {
 
     /*Тест проверяет процесс перехода к созданию новости и наличие всех необходимых элементов на странице */
     @Test
+    @Epic("ест")
     @Feature(value = "Тесты по разделу Новостей")
     @Story("Переход к созданию новости и Наличие всех элементов")
     public void shouldDisplayAllElementsOnCreateNewsPage() {
