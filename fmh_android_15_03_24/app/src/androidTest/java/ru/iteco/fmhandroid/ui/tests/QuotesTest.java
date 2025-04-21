@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.AuthStep;
@@ -58,12 +60,16 @@ public class QuotesTest {
     }
 
     @Test
-    public void shouldDisplayAllElementsOnQuotesPage() { //    Тест проверяет наличие всех элементов на странице с цитатами
+    @Feature(value = "Тесты по разделу Цитат")
+    @Story("Тест проверяет наличие всех элементов на странице с цитатами")
+    public void shouldDisplayAllElementsOnQuotesPage() {
         quotesStep.checkQuotesIsDisplayed();
     }
 
     @Test
-    public void shouldToggleQuoteDisplay() { // Проверка функциональности раскрытия и сворачивания цитаты на странице
+    @Feature(value = "Тесты по разделу Цитат")
+    @Story("Проверка функциональности раскрытия и сворачивания цитаты на странице")
+    public void shouldToggleQuoteDisplay() {
         String quoteTestText = "\"Ну, идеальное устройство мира в моих глазах. Где никто не оценивает, никто не осудит, где говоришь, и тебя слышат, где, если страшно, тебя обнимут и возьмут за руку, а если холодно тебя согреют.” Юля Капис, волонтер";
 
         quotesStep.checkQuote(0);

@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.AboutStep;
@@ -49,10 +51,12 @@ public class NewsTest {
         try {
             authStep.authScreenIsDisplayed();
             authStep.loginIn();
-            mainStep.checkMainIsDisplayed();
+            mainStep.openNewsPage();
+            newsStep.checkNewsIsDisplayed();
         } catch (NoMatchingViewException e) {
             mainStep.logout();
             authStep.loginIn();
+            mainStep.openNewsPage();
         }
         mActivityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
@@ -66,33 +70,32 @@ public class NewsTest {
     }
 
     @Test
+    @Feature(value = "Тесты по разделу Новостей")
+    @Story("Проверка что страница новостей открыта, отображаются все поля")
     public void shouldDisplayCompleteContentOnNewsPage() { // Переход на страницу "новости" через меню
-        mainStep.openNewsPage();
         newsStep.checkNewsIsDisplayed();
     }
-    @Test
-    public void shouldDisplayCompleteContentAllNewsPage() { // Переход на страницу "все новости" через кнопку в теле страницы
-        mainStep.openAllNews();
-        newsStep.checkNewsIsDisplayed();
-    }
-    @Test
 
+    @Test
+    @Feature(value = "Тесты по разделу Новостей")
+    @Story("Проверка отображения панели управления новостями")
     public void shouldAccessControlPanelWithAllElements() {
-        mainStep.openNewsPage();
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.checkThatControlPanelContentIsFull();
     }
+
     @Test
+    @Feature(value = "Тесты по разделу Новостей")
+    @Story("Увозврат на главную страницу")
     public void shouldReturnToHomePageFromNewsPageWithFullContentCheck() {
-        mainStep.openNewsPage();
-        newsStep.checkNewsIsDisplayed();
         newsStep.checkGoBackMainPage();
-        newsStep.checkNewsIsDisplayed();
+        mainStep.checkMainIsDisplayed();
     }
 
     @Test
-    public void shouldCancelNewsFilterWithoutApplyingChanges() { // Тест проверяет функциональность отмены фильтрации новостей
-        mainStep.openNewsPage();
+    @Feature(value = "Тесты по разделу Новостей")
+    @Story("Проверка функциональности отмены фильтрации новостей")
+    public void shouldCancelNewsFilterWithoutApplyingChanges() {
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.openNewsFilter();
         newsFilterStep.clickCancelButton();

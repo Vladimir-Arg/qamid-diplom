@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.AboutStep;
@@ -60,27 +62,37 @@ public class MainTest {
         }
     }
     @Test
-    public void checkMainTest() {// Проверка что открыта главная страница
+    @Feature(value = "Тесты по главной странице")
+    @DisplayName("Проверка что главная страница открыта, отображаются все поля")
+    public void checkMainTest() {
         mainStep.checkMainIsDisplayed();
     }
     @Test
-    public void openNewsInMenuTest() { // Переход на страницу "новости" через меню
+    @Feature(value = "Тесты по главной странице")
+    @DisplayName("Переход на страницу \"новости\" через меню")
+    public void openNewsInMenuTest() {
         mainStep.openNewsPage();
         newsStep.checkNewsIsDisplayed();
     }
     @Test
-    public void openAboutTest() { // переход на страницу "О программе" через меню
+    @Feature(value = "Тесты по главной странице")
+    @DisplayName("переход на страницу \"О программе\" через меню")
+    public void openAboutTest() {
         mainStep.openAboutPage();
         aboutStep.checkAboutIsDisplayed();
     }
     @Test
-    public void openNewsTest() {   // Переход на страницу "все новости" через кнопку в теле страницы
+    @Feature(value = "Тесты по главной странице")
+    @DisplayName("Переход на страницу \"все новости\" через кнопку в теле страницы")
+    public void openNewsTest() {
 
         mainStep.openAllNews();
         newsStep.checkNewsIsDisplayed();
     }
     @Test
-    public void openQuotesTest() {   // Переход на страницу цитат (@id/our_mission_image_button)
+    @Feature(value = "Тесты по главной странице")
+    @DisplayName("Переход на страницу цитат")
+    public void openQuotesTest() {   //  (@id/our_mission_image_button)
 
         mainStep.openQuotesPage();
         quotesStep.checkQuotesIsDisplayed();

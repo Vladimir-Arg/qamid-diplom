@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
-import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
 import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
@@ -71,29 +70,23 @@ public class CreateNewsTest {
         }
     }
 
-    /*Тест проверяет процесс перехода к созданию новости и наличие всех необходимых элементов на странице */
     @Test
-    @Epic("ест")
     @Feature(value = "Тесты по разделу Новостей")
     @Story("Переход к созданию новости и Наличие всех элементов")
     public void shouldDisplayAllElementsOnCreateNewsPage() {
-
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.openCreateNewsButton();
         createNewsStep.checkThatnewsCreateEditElementContentIsFull();
     }
 
-    /*Тест проверяет создание новости с валидными данными */
     @Test
     @Feature(value = "Тесты по разделу Новостей")
     @Story("Cоздание новости с валидными данными")
     public void shouldSuccessfullyCreateNewsWithValidData() {
-
         String publicationDate = getCurrentDate();
         String publicationTime = getCurrentTime();
-        String title = "Test Title";
+        String title = "TestTitle";
         String description = "TestDescription";
-
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.openCreateNewsButton();
         createNewsStep.createNews(randomCategory(), title, publicationDate,
@@ -103,24 +96,20 @@ public class CreateNewsTest {
         newsControlPanelStep.checkIfNewsWithTitle(title);
     }
 
-    /*Тест проверяет попытку создания новости без ввода данных */
     @Test
     @Feature(value = "Тесты по разделу Новостей")
     @Story("Cоздание новости с пустыми данными")
     public void shouldFailToCreateNewsWithEmptyFieldsAndShowMessage() {
-
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.openCreateNewsButton();
         createNewsStep.clickSaveButton();
         authStep.checkToastMessageText("Fill empty fields", decorView);
     }
 
-    /*Тест проверяет функционал отмены создания новости. */
     @Test
     @Feature(value = "Тесты по разделу Новостей")
     @Story("Отменить создание новости")
     public void shouldReturnToControlPanelOnNewsCreationCancellation() {
-
         newsControlPanelStep.openNewsControlPanelElement();
         newsControlPanelStep.openCreateNewsButton();
         createNewsStep.clickCancelButton();

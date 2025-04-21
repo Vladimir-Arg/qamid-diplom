@@ -12,6 +12,7 @@ import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,12 +55,17 @@ public class AboutTest {
         }
         activityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
-    /*Тест проверяет, что страница "О приложении" содержит все необходимые элементы. */
+    @After
+    public void tearDown() {
+        try {
+            mainStep.logout();
+        } catch (Exception ignored) {
+        }
+    }
     @Test
     @Feature(value = "Тесты по странице \"О приложении\"")
     @DisplayName("Наличие всех элементов страницы")
     public void shouldContainAllElementsOnAboutPage() {
-        mainStep.openAboutPage();
         aboutStep.checkAboutIsDisplayed();
     }
 
@@ -68,7 +74,6 @@ public class AboutTest {
     @Feature(value = "Тесты по странице \"О приложении\"")
     @DisplayName("Возвращение на главную")
     public void shouldReturnToMainPageFromAboutPage() {
-        mainStep.openAboutPage();
         aboutStep.goMain();
         mainStep.checkMainIsDisplayed();
     }
@@ -77,10 +82,10 @@ public class AboutTest {
     @Feature(value = "Тесты по странице \"О приложении\"")
     @DisplayName("Переход к странице \"О приложении\", находясь на странице \"Новости\"")
     public void shouldNotNavigateToAboutPageFromNewsPageDueToInactiveLink() {
+        aboutStep.goMain();
         mainStep.openNewsPage();
         mainStep.openAboutPage();
         aboutStep.checkAboutIsDisplayed();
-
     }
 
     /*Тест проверяет переход к политике конфиденциальности по кликабельной ссылке, хотя страница не загружается. */
@@ -88,7 +93,6 @@ public class AboutTest {
     @Feature(value = "Тесты по странице \"О приложении\"")
     @DisplayName("Переход к политике конфиденциальности по ссылке. Ссылка кликабельна, но страница фактически не загружается")
     public void shouldAttemptToOpenPrivacyPolicyLink() {
-        mainStep.openAboutPage();
         Intents.init();
         aboutStep.goToPrivacyPolicy();
         intended(hasData("https://vhospice.org/#/privacy-policy"));
@@ -99,7 +103,6 @@ public class AboutTest {
     @Feature(value = "Тесты по странице \"О приложении\"")
     @DisplayName("Переход к пользовательскому соглашению по ссылке. Ссылка кликабельна, но страница фактически не загружается")
     public void shouldAttemptToOpenTermsOfUseLink() {
-        mainStep.openAboutPage();
         Intents.init();
         aboutStep.goToTermsOfUse();
         intended(hasData("https://vhospice.org/#/terms-of-use"));

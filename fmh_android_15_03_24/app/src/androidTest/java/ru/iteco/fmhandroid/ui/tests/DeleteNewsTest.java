@@ -85,7 +85,6 @@ public class DeleteNewsTest {
 
         controlPanelStep.opencontrolPanelElement();
         controlPanelStep.openCreateNewsButton();
-
         newsCreateEditStep.createNews(randomCategory(), title, publicationDate,
                 publicationTime, description);
         newsCreateEditStep.clickSaveButton();
